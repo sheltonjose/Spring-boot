@@ -1,28 +1,36 @@
 package com.example.demo;
 
-import java.time.LocalDate;
-import java.time.Month;
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Service
 public class StudentService {
 
-    @RequestMapping
-	public List<Student> getStudents(){
-		return List.of(
-            new Student(
-                1L,
-                "Shelton idília Joaquim José",
-                "sheltonjose02@gmail.com",
-                LocalDate.of(2003, Month.DECEMBER, 2),
-                22
+    private final StudentRepository studentRepository;
 
-            )
-        );
+    
+    public  StudentService(StudentRepository studentRepository){
+        this.studentRepository= studentRepository;
+    }
+
+	public List<Student> getStudents(){
+        return studentRepository.findAll();
 	}
+
+    public void addNewStudent(Student student) {
+       Optional<Student> studentOptional  = studentRepository.findStudentByEmail(student.getEmail());
+        if (studentOptional.isPresent()) {
+            throw new IllegalStateException("email taken");
+        }
+
+        studentRepository.save(student);
+       // System.out.println(student);
+
+    }
    
    
 
