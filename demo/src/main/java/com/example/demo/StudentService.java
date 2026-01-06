@@ -30,6 +30,22 @@ public class StudentService {
         studentRepository.save(student);
        // System.out.println(student);
 
+
+    }
+
+    public void deleteStudent(Long studentId) {
+        // TODO Auto-generated method stub
+        studentRepository.findById(studentId);
+        boolean exists =studentRepository.existsById(studentId);
+        if (!exists) {
+            throw new IllegalStateException("Student with id " + studentId + " does not exist");
+        }
+        studentRepository.deleteById(studentId);
+
+
+
+
+    
     }
    
    
