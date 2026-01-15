@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class StudentService {
@@ -48,6 +50,8 @@ public class StudentService {
     
     }
 
+     
+     @Transactional
     public void updateStudent(Long studentId, String name, String email){
         Student student = studentRepository.findById(studentId).orElseThrow(()-> new IllegalStateException("Student with id " + studentId + " does not exist"));
 
