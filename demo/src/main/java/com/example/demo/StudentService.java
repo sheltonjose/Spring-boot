@@ -34,7 +34,7 @@ public class StudentService {
     }
 
     public void deleteStudent(Long studentId) {
-        // TODO Auto-generated method stub
+     
         studentRepository.findById(studentId);
         boolean exists =studentRepository.existsById(studentId);
         if (!exists) {
@@ -50,6 +50,7 @@ public class StudentService {
 
     public void updateStudent(Long studentId, String name, String email){
         Student student = studentRepository.findById(studentId).orElseThrow(()-> new IllegalStateException("Student with id " + studentId + " does not exist"));
+
         if (name != null && name.length() > 0 && !student.getName().equals(name)) {
             student.setName(name);
         }
